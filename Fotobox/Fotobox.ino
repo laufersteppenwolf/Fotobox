@@ -13,7 +13,7 @@ int pinPoti = A6;
 #define TIME_KEEP_CAPTURE_PRESSED_MS 200
 
 int led = 13;        //Internal LED pin
-int brightness = 25; //Initial brightness in %
+int brightness = 2; //Initial brightness in %
 int wait = 500;      //fade-delay in Microseconds
 
 //Internal variables
@@ -49,11 +49,7 @@ void loop() {
   }
 
   if(!digitalRead(pinButtonCapture)) {
-    if (!digitalRead(pinButtonFlash)){
-      crossFade(getFlashBrightness());
-      Serial.print("Flash requested with value: ");
-      Serial.println(getFlashBrightness());
-    }
+    
     digitalWrite(pinOutLED1, true);
     Serial.println("LED1 ON");
     
@@ -66,6 +62,11 @@ void loop() {
     Serial.println("LED3 ON");
     
     delay(TIME_UNTIL_CAPTURE_MS / 4);
+    if (!digitalRead(pinButtonFlash)){
+      crossFade(getFlashBrightness());
+      Serial.print("Flash requested with value: ");
+      Serial.println(getFlashBrightness());
+    }
     digitalWrite(pinOutLED4, true);
     Serial.println("LED4 ON");
     digitalWrite(pinOutFocus, false); //FOCUS!!
